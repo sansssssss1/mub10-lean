@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use these formal proofs or certificates, please cite this software and identify the Git commit you verified."
+title: "A quaternary phase obstruction for mutually unbiased bases in dimension ten"
+type: software
+authors:
+  - name: "mub10-lean contributors"
+license: MIT
+keywords:
+  - mutually unbiased bases
+  - complex Hadamard matrices
+  - Lean 4
+  - formal verification

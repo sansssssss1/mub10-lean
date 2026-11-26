@@ -1,0 +1,43 @@
+name: Verify proofs and certificates
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  proofs:
+    name: Build Lean proofs
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - uses: leanprover/lean-action@ba3fdfe5c4476c925da13bf11a005ddb47e47aee # v1
+        with:
+          auto-config: "false"
+          build: "true"
+          use-mathlib-cache: "true"
+          use-github-cache: "false"
+
+  certificates:
+    name: Reproduce integer certificates
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548 # v6.1.0
+        with:
+          python-version: "3.12"
+      - name: Regenerate the 1,284 catalogue witnesses
+        run: |
+          node reproduce/leaf-certificates.mjs
+          git diff --exit-code -- single-leaf-certificates.txt
+      - name: Reconstruct the Laurent identity over the rationals
+        run: |
+          python -m pip install --only-binary=:all: -r reproduce/requirements.txt
+          python reproduce/recover.py
