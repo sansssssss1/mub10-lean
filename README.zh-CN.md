@@ -1,8 +1,16 @@
-# 十维互无偏基的四相位障碍
+# 十维双八相位互无偏基的强不可扩张性
 
 [English](README.md)
 
-## 主定理
+## 双八相位定理
+
+在十维复空间中，设 $E,H,K$ 是三组两两互无偏的正交归一基。固定坐标基 $E$ 及其相位。如果 $H,K$ 的每个基向量 $v$ 都满足各坐标比 $v_j/v_0$ 是八次单位根，那么**不存在同时对这三组基无偏的复单位向量**。每个基向量的整体相位可独立选择，候选扩张向量允许任意复相位。[英文论文 PDF](paper/mub10-octonary.pdf) · [LaTeX 源稿](paper/mub10-octonary.tex) · [Lean 主定理](OctSixtyConclusions.lean)
+
+**对完整 11 组的限制。** 假设这样的完整系统存在。任选其中一组作为 $E$，对其余十组使用同一套坐标相位。则至少九组各有一个向量 $v$ 和一个坐标 $j$，使 $(v_j/v_0)^8\ne1$。定理排除了同一坐标系下同时含两组八相位基的完整系统；含一组或零组的情形仍然可能。十维完整系统的一般存在性仍然开放。[十一组计数定理](OctSixtyConclusions.lean) · [十维问题的文献背景](https://arxiv.org/abs/2611.21188)
+
+Lean 验证了 60 个已发表的十阶八相位 Hadamard 代表各自合法、两两不等价，并通过 15,564 个搜索终点证明分类覆盖全部输入。按公开目录从 1 起编号，只有第 9、28 个代表可配对，固定代表后的配对数分别为 36、1。每个配对基按消去整体相位后的无序射线集合计数。所有配对均可在同一个坐标变换下化为四相位。[分类覆盖](OctSingleClassification.lean) · [代表互异性](OctDistinct.lean) · [配对精确计数](OctSixtyExact.lean) · [已发表的目录分类](https://doi.org/10.1090/mcom/3453)
+
+## 四相位邻域定理
 
 取十维复空间中任意三组两两互无偏的正交归一基 $E,H,K$。把 $E$ 作为坐标基，把 $H,K$ 共二十个基向量的坐标乘以 $\sqrt{10}$，得到单位模复数 $X_{rj}$。记 $\mu_4=\{1,i,-1,-i\}$。
 
@@ -17,7 +25,7 @@
 
 交比使用 $X_{rj}\overline{X_{rj_0}}\overline{X_{r_0j}}X_{r_0j_0}$。任意行相位或共同列相位都在这里抵消。计数结论对同一套参考坐标相位成立。改变参考基的相位后，也可在新的共同约定下重新应用。一般十维空间中完整 11 组的存在性仍然开放。[Yang 等，讨论](https://arxiv.org/html/2611.21188v1#S4)
 
-## 证明的有限部分
+## 四相位证明的有限部分
 
 1. 对任意四相位矩阵先去掉第一行和第一列的相位，再取行、列同时按字典序排序的等价代表。逐行搜索保留 1,284 个十行终点。每个终点到公开目录某一项的坐标置换、行相位、列相位均由 Lean 检查；十个目录项另由取值互异的整数不变量区分。分类本身是已有定理。这里独立机检了覆盖性与区分性。[原分类](https://arxiv.org/abs/1204.5164) · [作者数据](https://wiki.aalto.fi/spaces/QCHmatrices/pages/63546913/BH+4+10+matrices)
 2. 固定任一目录项，把候选配对矩阵的每行首坐标化成 1。在全部 $4^9$ 个候选行中保留符合无偏方程的行，再穷尽十条两两正交的行。两个目录项得到配对，计数分别为 36 和 1。对这 37 个输出，Lean 逐一验证了到 Best–Kharaghani 表 1 的共同坐标变换，允许交换另两组基。这些输出属于同一等价类。[表 1](https://arxiv.org/pdf/1209.4315) · [已发表的配对研究](https://doi.org/10.1002/jcd.70006)
@@ -46,8 +54,10 @@ lake build
 
 主定理没有证明占位符或自设公理。其公理输出为 `propext`、`Classical.choice`、`Lean.ofReduceBool`、`Quot.sound`。`Lean.ofReduceBool` 用于信任 Lean 的原生计算机制，以检查有限枚举和大整数证书。连续参数的构造和紧性推导仅用其余三项。
 
-默认构建还核对主要定理的公理依赖。GitHub Actions 在推送与拉取请求时构建证明，并独立重算有限分类见证与 Laurent 整数证书。[公理核验](CheckAxioms.lean) · [工作流](.github/workflows/verify.yml) · [四份数据与复现命令](reproduce/README.md)
+默认构建覆盖双八相位、四相位两条主证明，并核对主要定理的公理依赖。在仓库根目录运行下列命令，还可独立复算八相位证书并重做正向搜索。四相位 Laurent 整数证书的复算命令也在数据说明中。[公理核验](CheckAxioms.lean) · [工作流](.github/workflows/verify.yml) · [数据来源与复现命令](reproduce/README.md)
 
-## 许可
+~~~sh
+node reproduce/octonary.mjs --forward
+~~~
 
-原创 Lean 代码、复现脚本及文档采用 MIT 许可证。公开矩阵的数据来源和原作者见复现说明。[许可证](LICENSE) · [数据来源](reproduce/README.md)
+从仓库根目录运行 `tectonic paper/mub10-octonary.tex` 可重建论文 PDF。

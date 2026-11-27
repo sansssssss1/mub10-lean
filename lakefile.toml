@@ -9,8 +9,56 @@ rev = "v4.19.0"
 
 [[lean_lib]]
 name = "VerifiedMUB"
+needs = ["bkWeights", "bkMultipliers", "quaternaryCatalogue", "quaternaryLeaves",
+  "octonaryCatalogue", "octonaryLeaves", "octonaryRays", "octonaryMates"]
 roots = ["Certificate", "Monomials", "ComplexBridge", "PolyCheck", "Gram", "StrongTriple",
   "Gap", "UniformGap", "Invariant", "Catalogue", "ClassObstruction", "Robust", "RoundedGram",
   "ClassRadius", "Gauge", "DoubleLex", "LeafCertificates", "LexNormal", "LeafCoverage",
   "Distinct", "Complete", "MainResult", "Rectangle", "Deformation", "Neighbourhood", "CurveNeighbourhood",
-  "Earlier.Parity", "Earlier.RayExample", "CheckAxioms"]
+  "Earlier.Parity", "Earlier.RayExample",
+  "OctBasics", "OctOverlap", "OctGlobalCore", "OctSixtyData", "OctLexNormal", "OctCoverSearch",
+  "OctIndexedCover", "OctZeroPool", "OctPacked", "OctParallelJobs", "OctParallelMatch",
+  "OctLeafCertificates", "OctLeafMatch", "OctRepresentatives", "OctDistinct",
+  "OctSixtyPhysical", "OctSixtyGauge", "OctSixtyPool", "OctSixtyScan", "OctSixtyLower",
+  "OctSixtyExact", "OctSixtyGlobalCore", "OctAlphabet", "OctSixtyGlobal",
+  "OctSingleClassification", "OctSixtyConclusions", "CheckAxioms"]
+
+[[input_file]]
+name = "bkWeights"
+path = "weights.txt"
+text = true
+
+[[input_file]]
+name = "bkMultipliers"
+path = "multipliers.txt"
+text = true
+
+[[input_file]]
+name = "quaternaryCatalogue"
+path = "aalto-bh4-10.txt"
+text = true
+
+[[input_file]]
+name = "quaternaryLeaves"
+path = "single-leaf-certificates.txt"
+text = true
+
+[[input_file]]
+name = "octonaryCatalogue"
+path = "BH-10-8.txt"
+text = true
+
+[[input_file]]
+name = "octonaryLeaves"
+path = "oct-leaf-certificates.txt"
+text = true
+
+[[input_file]]
+name = "octonaryRays"
+path = "oct-ray-witnesses.txt"
+text = true
+
+[[input_file]]
+name = "octonaryMates"
+path = "oct-mate-witnesses.txt"
+text = true

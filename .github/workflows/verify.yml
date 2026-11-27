@@ -37,6 +37,8 @@ jobs:
         run: |
           node reproduce/leaf-certificates.mjs
           git diff --exit-code -- single-leaf-certificates.txt
+      - name: Recompute the octonary classification and all mate witnesses
+        run: node reproduce/octonary.mjs --forward
       - name: Reconstruct the Laurent identity over the rationals
         run: |
           python -m pip install --only-binary=:all: -r reproduce/requirements.txt

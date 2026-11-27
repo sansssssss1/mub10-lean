@@ -1,0 +1,505 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm,booktabs}
+\usepackage[margin=1.06in]{geometry}
+\usepackage[hidelinks]{hyperref}
+\setlength{\emergencystretch}{2em}
+\hypersetup{pdftitle={Eighth-root phases and strong unextendibility of mutually unbiased bases in dimension ten},pdfauthor={}}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newcommand{\C}{\mathbb C}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\BH}{\mathrm{BH}}
+\newcommand{\ii}{\mathrm i}
+\newcommand{\code}[1]{\texttt{\detokenize{#1}}}
+\title{Eighth-root phases and strong unextendibility\\of mutually unbiased bases in dimension ten}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+\vspace{-2.2em}
+\begin{abstract}
+Fix an orthonormal coordinate basis of \(\C^{10}\). Suppose that two further
+bases are mutually unbiased to it and to one another, and that within every
+vector of the two bases all coordinate ratios are eighth roots of unity.
+We prove that no complex unit vector is unbiased to all three bases.
+The finite part of the proof classifies octonary unbiased mates for each
+of the 60 monomial equivalence classes of \(\BH(10,8)\). Only two
+representatives admit mates, with 36 and one unordered dephased mates,
+respectively. A common change of coordinate phases then makes both bases
+quaternary up to row phases. An exact Gaussian-integer Laurent identity
+excludes an additional vector with arbitrary complex phases. The
+classification coverage, mate enumeration, identity, and passage to
+complex measurement probabilities are verified in Lean~4. Consequently,
+in a complete set of eleven bases, after fixing the coordinate vectors of
+one basis, at least nine of the remaining ten would have a vector with a
+coordinate ratio outside the eighth roots of unity.
+\end{abstract}
+
+\section{The obstruction}
+
+Two orthonormal bases of \(\C^d\) are \emph{mutually unbiased} if
+\(\lvert\langle u,v\rangle\rvert^2=1/d\) for all vectors \(u,v\) from
+different bases. A family of such bases is \emph{strongly unextendible}
+if no unit vector has squared overlap \(1/d\) with every basis vector in
+the family. Whether \(\C^{10}\) admits a complete set of eleven mutually
+unbiased bases remains open \cite{yang}. We give a condition on two bases
+in one common coordinate system that already rules out an additional
+unbiased vector.
+
+Write \(\mu_q=\{z\in\C:z^q=1\}\). Fix an ordered orthonormal basis
+\(E=(e_0,\ldots,e_9)\), including a choice of phase for each \(e_j\).
+Write \(u_j=\langle e_j,u\rangle\), with the inner product linear in its
+second argument. A unit vector unbiased to \(E\) satisfies
+\(\lvert u_j\rvert=1/\sqrt{10}\) at every coordinate.
+We say that its ray has \emph{eighth-root coordinate ratios} if
+\[
+                    (u_j/u_0)^8=1 \qquad(0\le j<10).
+\]
+This condition is invariant under an arbitrary phase on \(u\).
+The coordinate phases of \(E\) are shared by all rays under consideration.
+
+\begin{theorem}\label{th:main}
+Let \(E,H,K\) be pairwise mutually unbiased bases of \(\C^{10}\).
+If each of the twenty rays of \(H\) and \(K\) has eighth-root coordinate
+ratios in \(E\), the triple \(E,H,K\) is strongly unextendible.
+\end{theorem}
+
+The restriction on phases concerns the given bases. The theorem quantifies
+over the whole unit sphere for the candidate vector.
+
+\begin{corollary}\label{co:eleven}
+Suppose that eleven pairwise mutually unbiased bases exist in \(\C^{10}\).
+Choose any member as \(E\) and fix its coordinate phases. At least nine
+of the ten other bases contain a vector \(u\) and a coordinate \(j\)
+for which \((u_j/u_0)^8\ne1\).
+\end{corollary}
+\begin{proof}
+If two of those ten bases had the eighth-root property for every ray,
+Theorem~\ref{th:main} would apply. Any vector from a fourth member of
+the family would contradict the theorem.
+\end{proof}
+
+A Butson Hadamard matrix \(A\in\BH(n,q)\) has entries in \(\mu_q\)
+and satisfies \(AA^*=nI_n\). Best and Kharaghani gave an explicit unbiased
+pair in \(\BH(10,4)\) and proved an upper bound of two mutually unbiased
+quaternary matrices at orders twice an odd integer \cite{best}.
+Their bound concerns an entire additional matrix with quaternary entries.
+Kharaghani, Tayfeh-Rezaie and Zaitsev subsequently counted the
+quaternary mates of each order-ten quaternary representative
+\cite[Table~4]{regular}. Single quaternary matrices of order ten were
+classified in \cite{quaternary}, and Lampio, \"Osterg{\aa}rd and
+Sz\"oll\H{o}si classified the 60 single octonary matrices up to
+monomial equivalence \cite{orderly,data}. We use the published
+representatives and independently certify their coverage. The mate
+classification below determines which of these matrices have an
+unbiased octonary mate and which phases occur in that mate. The
+final obstruction concerns one further vector over \(\C\).
+
+Yang, Liu, Li and Deng proved strong unextendibility for triples of
+product bases of \(\C^2\otimes\C^5\), and for triples containing a pair
+equivalent to the standard and Fourier bases \cite[Theorems~A and~B]{yang}.
+Here the hypothesis is a restriction on coordinate ratios in a common
+basis. The proof proceeds by simultaneous reduction to four phases
+and the quaternary certificate of the companion software \cite{software}.
+It uses neither the Fourier-pair exclusion nor the product-basis exclusion.
+
+\section{Phases and exact overlaps}
+
+Set \(\zeta=\exp(\pi\ii/4)\), so that \(\zeta^2=\ii\).
+Multiplying every coordinate of a normalized flat row by \(\sqrt{10}\)
+makes each entry unimodular. We use these \emph{raw} rows for all
+finite computations. For raw rows \(h,r\), put
+\[
+                  S(h,r)=\sum_{j=0}^{9}\overline{h_j}r_j .
+\]
+The corresponding Born probability is \(\lvert S(h,r)\rvert^2/100\).
+Consequently distinct rows in a basis have \(S=0\), and rows in two
+mutually unbiased bases have \(\lvert S\rvert^2=10\).
+Every ray in the hypothesis of Theorem~\ref{th:main} has a unique raw
+representative with first entry \(1\) and all entries in \(\mu_8\).
+
+If \(h_j=\zeta^{p_j}\) and \(r_j=\zeta^{q_j}\), their overlap is a
+sum of ten eighth roots with exponents \(q_j-p_j\bmod 8\). Group
+the even and odd exponents to write
+\begin{equation}\label{eq:split}
+          S=A+\zeta B,\qquad A=a+b\ii,\quad B=u+v\ii ,
+          \qquad a,b,u,v\in\Z .
+\end{equation}
+Each integer coefficient lies in \([-10,10]\).
+The four directions \(1,\ii,\zeta,\ii\zeta\) are linearly independent
+over \(\Q\), since \(x^4+1\) is the minimal polynomial of \(\zeta\).
+
+\begin{lemma}\label{le:overlap}
+The overlap is zero exactly when \(a=b=u=v=0\). It has squared modulus
+\(10\) exactly when one of \(A,B\) is zero and the absolute values of
+the real and imaginary parts of the other are \(1,3\) in either order.
+\end{lemma}
+\begin{proof}
+The zero criterion follows from linear independence. For the norm, put
+\(x=a^2+b^2\) and \(y=u^2+v^2\). Direct expansion gives
+\[
+   |A+\zeta B|^2
+     =x+y+\sqrt{2}\bigl(a(u-v)+b(u+v)\bigr).
+\]
+If this equals \(10\), irrationality of \(\sqrt2\) gives \(x+y=10\)
+and \(au+bv=av-bu\). The two-square identity gives
+\(xy=(au+bv)^2+(av-bu)^2=2(au+bv)^2\).
+Up to interchange, \(x=0,1,\ldots,5\). The possible products \(xy\)
+are \(0,9,16,21,24,25\), of which only \(0\) is twice an integer square.
+A Gaussian integer of norm ten has squared components \(1\) and \(9\).
+The converse follows directly from \eqref{eq:split}.
+\end{proof}
+
+For an efficient exact test define
+\[
+ L(a,b,u,v)=a+32b+32^2u+32^3v .
+\]
+On the coefficient box just described this map is injective. Reducing
+an equality modulo 32 identifies the first signed coefficient, because
+the difference of the two coefficients has absolute value at most 20.
+Subtraction and division by 32 recover the remaining coefficients
+successively. The contribution of an exponent \(0,1,\ldots,7\) to \(L\)
+is, in that order,
+\[
+                1,\ 1024,\ 32,\ 32768,\ -1,\ -1024,\ -32,\ -32768 .
+\]
+Thus raw orthogonality has integer score zero. The acceptable scores
+for unbiasedness form the sixteen-element set
+\begin{equation}\label{eq:targets}
+   T=U\cup 1024U,\qquad
+   U=\{\pm97,\pm95,\pm35,\pm29\}.
+\end{equation}
+Both equivalences are verified against the ordinary complex inner product
+in the formalization.
+
+\section{Classifying the octonary mates}
+
+A monomial equivalence of a single octonary matrix permits independent
+row and column permutations and multiplication of individual rows and
+columns by elements of \(\mu_8\). In a pair, a common column operation
+acts on the ambient coordinates. Each basis retains its own row
+permutations and row phases. We fix the first matrix \(H\) at a listed
+representative. A \emph{mate} of \(H\) is an unordered set of ten
+distinct octonary rows, dephased to have first entry 1, that are mutually
+orthogonal and are each unbiased to every row of \(H\) in the raw
+convention. The count keeps \(H\) fixed and retains mates related by
+its stabilizer whenever they give different sets of dephased rows.
+
+\begin{proposition}[Finite classification]\label{pr:scan}
+In the order of the published Aalto file \code{BH-10-8.txt}, numbering
+its lines from one, only representatives 9 and 28 have an octonary
+mate. They have 36 and one distinct mates, respectively. These two
+representatives, as supplied, and every dephased row in each of their
+mates have all exponents even.
+\end{proposition}
+
+\begin{proof}
+We describe the exhaustive searches and the checks on their output.
+
+\emph{Single-matrix coverage.}
+Dephase a matrix so that its first row and first column are all ones.
+Use exponents in \(\{0,\ldots,7\}\) and number coordinates from zero.
+There is a representative whose rows and columns are simultaneously
+lexicographically nondecreasing. To see this, take a minimum of
+\(\sum_{r,j}8^{9-r}8^{9-j}p_{rj}\) over permutations fixing the first
+row and column of a dephased exponent matrix \(p\). The base-eight
+value of a row orders the rows lexicographically. Swapping an inverted
+pair decreases the displayed integer. The same argument applies to
+columns by symmetry. The first row and column consist of zeros, so
+they do not introduce inversions.
+
+Build such a representative in increasing row order, beginning with
+the zero exponent row. The second row is nondecreasing. Its occurrences
+of \(t\) and \(t+4\) must balance, by Lemma~\ref{le:overlap}. If
+\(n_0,\ldots,n_3\) denote the four pair counts, then
+\(\sum n_t=5\) and \(n_0\ge1\) because the first entry is zero.
+This gives \(\binom73=35\) possible second rows. At each subsequent
+step require orthogonality to the preceding rows. Whenever adjacent
+columns have agreed throughout the prefix, the appended entries in
+these columns must appear in nondecreasing order. These tests retain
+every prefix of a doubly ordered solution. The remaining pool must
+also contain enough distinct rows to finish the matrix. The resulting
+search yields \(15\,564\) ten-row leaves. For every leaf a witness
+specifies a column permutation and row and column phases taking its row
+multiset to a listed representative. The verified list of leaves is
+equal to the list carrying these witnesses.
+
+The code checks the Gram matrix of each representative. It also
+separates the 60 representatives using an integer invariant of the
+exponent matrix. For clarity, write
+\(d_{abkj}=[p_{bj}-p_{aj}-p_{bk}+p_{ak}]_8\), where brackets denote
+least nonnegative residues. The invariant is
+\[
+ \sum_{a,b,c,d,k}
+ \left[\sum_j(d_{abkj}+d_{ackj}+d_{adkj})^2\right]_{19}.
+\]
+Row and column phases cancel in the four-entry differences. Permutations
+reindex the sums. Direct evaluation gives 60 distinct values. This
+certifies inequivalence under the stated monomial action.
+
+\emph{Rows for a fixed representative.}
+Construct all \(8^9\) possible dephased rows implicitly. Split a row
+into its first five and last five entries. The first half has
+\(8^4\) choices and the second has \(8^5\). For the first two
+anchor rows, tabulate the pair of partial scores of each second half.
+For each first half with partial scores \((s_1,s_2)\), and each
+\((t_1,t_2)\in T^2\), retrieve all second halves with scores
+\((t_1-s_1,t_2-s_2)\). Additivity of \(L\) ensures that this finds
+every solution of the first two equations. Filter against the remaining
+anchor rows using \eqref{eq:targets}. Shared initial anchor rows can
+reuse the same partial tables. Table~\ref{tab:rays} gives the resulting
+numbers of distinct dephased rays. The sum over these sixty fixed
+representatives is \(11\,200\).
+
+\begin{table}[tb]
+\centering
+\caption{Octonary rays unbiased to the standard basis and to each
+Aalto representative. Within each row the entries follow consecutive
+one-based catalogue indices. Bold entries mark anchors admitting a
+complete mate.}\label{tab:rays}
+\small
+\begin{tabular}{@{}lrrrrrrrrrr@{}}
+\toprule
+Indices & \multicolumn{10}{c}{Number of distinct dephased rays}\\
+\midrule
+1--10  &560&216&400&560&224&336&320&304&\textbf{912}&400\\
+11--20 &304&232&144&160&192&128&32&60&128&192\\
+21--30 &232&144&232&144&192&128&172&\textbf{112}&360&80\\
+31--40 &360&128&24&48&60&224&224&400&400&320\\
+41--50 &144&232&192&192&192&24&224&24&32&24\\
+51--60 &20&22&22&0&8&20&20&20&0&0\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\emph{Bases from rows.}
+In the graph on the surviving rays join two vertices when their
+integer overlap score is zero. A mate is precisely a ten-clique.
+Recursively choosing one vertex, intersecting the remaining pool with
+its neighbours and ordering the choices lists every ten-clique.
+An independently stored list of rays and a list of unordered mate
+sets supply positive witnesses. Lean checks their validity, their
+cardinalities as sets, and that every valid ray or mate occurs in
+the corresponding list. The mate counts are 36 at index 9, one at
+index 28, and zero at the other 58 indices. Checking the two anchor
+tables and every row of the surviving cliques gives the asserted
+parity of the exponents. Individual surviving rays that do not belong
+to a ten-clique are not subject to this conclusion.
+\end{proof}
+
+\begin{corollary}[Simultaneous reduction]\label{co:descent}
+Under the hypotheses of Theorem~\ref{th:main}, one common monomial
+coordinate change and separate phases on the twenty rows give raw
+matrices \(H',K'\in\BH(10,4)\). In particular, for the stacked raw
+matrix \(X\) of twenty rows,
+\[
+                  \frac{X_{aj}X_{bk}}{X_{ak}X_{bj}}\in\mu_4
+           \qquad\text{for all rows \(a,b\) and coordinates \(j,k\)} .
+\]
+The two rows may belong to different bases.
+\end{corollary}
+\begin{proof}
+Represent both bases by dephased eighth-root rows and move the first
+basis to the catalogue by monomial equivalence. Apply the same column
+operation to the second basis and dephase its rows again. The Gram
+conditions are preserved, so its rows form a mate in
+Proposition~\ref{pr:scan}. Both transformed matrices have only even
+exponents. Row and column phases cancel in the displayed ratios, and a
+column permutation merely relabels \(j,k\).
+\end{proof}
+
+\section{The obstruction for an arbitrary complex vector}
+
+It remains to exclude a flat vector whose entries can range over the full
+circle. We describe the characteristic-zero certificate for this step
+and its transport to all the pairs found above. In the quaternary
+catalogue of \cite{quaternary}, exhaustive row and clique enumeration
+again gives 36 mates for one representative and one for another,
+in agreement with \cite[Table~4]{regular}. The quaternary part of
+\cite{software} additionally supplies explicit equivalence witnesses
+taking every such pair to the pair in \cite[Table~1]{best}, by a common
+coordinate transformation, row permutations, row phases and a possible
+exchange of the two bases. Thus one certificate for those
+twenty reference rows suffices. For completeness we spell out its
+equations and the check that makes it an obstruction.
+The quaternary proofs and certificate data used here are available at
+\href{https://github.com/sansssssss1/mub10-lean/tree/4321a0e7c888149fbeadd5ab8356555a68baa64e}{revision \code{4321a0e}} of \cite{software}.
+
+Write \(R_{rj}=\ii^{p_{rj}}\) for the reference rows
+\(0\le r<20\). The normalized input vectors are \(R_r/\sqrt{10}\).
+Any unit vector unbiased to \(E\) has the form \(v=z/\sqrt{10}\) with
+\(|z_j|=1\). In the Laurent ring
+\(\Z[\ii][z_0^{\pm1},\ldots,z_9^{\pm1}]\) form
+\[
+ f_r(z)=\sum_{j\ne k}\ii^{\,p_{rk}-p_{rj}}\,z_jz_k^{-1}.
+\]
+On the torus \(z_k^{-1}=\overline{z_k}\), so expansion of the square
+gives
+\begin{equation}\label{eq:laurent}
+       f_r(z)=\left|\sum_j\overline{R_{rj}}z_j\right|^2-10
+              =100\left(\left|\left\langle
+                  R_r/\sqrt{10},v\right\rangle\right|^2-\tfrac1{10}\right).
+\end{equation}
+The diagonal terms give the subtracted ten. A common unbiased vector
+would therefore make all twenty polynomials vanish.
+
+\begin{lemma}\label{le:cert}
+For the reference rows there are Gaussian-integer Laurent polynomials
+\(g_0,\ldots,g_{19}\) and a positive integer \(C\) such that
+\(\sum_{r=0}^{19} g_r f_r=C\).
+\end{lemma}
+\begin{proof}
+The witness in \cite{software} consists of \(24\,140\) triples
+\((r,m,c)\), with \(m\in\Z^{10}\) and \(c\in\Z[\ii]\). For each row
+index put \(g_r=\sum_{(r,m,c)}c z^m\).
+To check the identity, initialize a dictionary indexed by vectors
+in \(\Z^{10}\) with value zero. For each triple and each ordered
+pair \(j\ne k\), add \(c\,\ii^{p_{rk}-p_{rj}}\) at key
+\(m+e_j-e_k\), using \(e_j\) here for the \(j\)-th integer unit
+vector. The \(2\,172\,600\) contributions occupy \(24\,691\) distinct
+keys before cancellation. Collecting them leaves a single nonzero
+coefficient at the zero exponent. It is the positive 313-digit integer \(C\)
+specified by \code{constantValue} in \code{Certificate.lean}.
+The finite identity \code{exact_certificate} verifies the collection
+with exact signed integers and checks the bounds required by the
+packed exponent representation. The evaluation lemma in
+\code{StrongTriple.lean} then identifies that constant with the
+linear combination of the complex row equations.
+\end{proof}
+
+One can reconstruct the witness from the reference matrices. The
+reproduction script selects 610 independent orbit rows using reduction
+modulo 13, solves the resulting system over the rationals, expands the
+orbit multipliers, and clears denominators and a common factor. The
+proof of Lemma~\ref{le:cert} uses the re-expanded integer identity
+directly. As a numerical scale for this certificate, the sum of
+\(|\Re c|+|\Im c|\) over its multipliers is strictly less than
+\(44\,278 C\). On the unit torus this implies that some row has
+\(|f_r|\ge 1/44\,278\), giving a probability discrepancy of at least
+\(1/4\,427\,800\) for the reference pair by \eqref{eq:laurent}.
+These integer and real inequalities are also checked in the quaternary
+development \cite{software}.
+
+\begin{proof}[Proof of Theorem~\ref{th:main}]
+Apply Corollary~\ref{co:descent} and the quaternary equivalence witnesses
+to obtain the reference pair. A common monomial coordinate change
+preserves flatness, and applying the change to the state and to each
+measurement vector preserves the absolute inner products. Row phases
+and basis permutations preserve the requirement that every probability
+equal \(1/10\). If a common unbiased vector existed, its transformed
+coordinates would therefore give \(f_0=\cdots=f_{19}=0\) in
+\eqref{eq:laurent}. Substitution into Lemma~\ref{le:cert} would force
+the positive integer \(C\) to vanish.
+\end{proof}
+
+\section{Verification and scope}
+
+The implementation uses Lean~4.19.0 and mathlib~4.19.0.
+The equivalence of the integer scores and the complex overlap tests
+is proved in \code{OctSixtyPhysical.lean}.
+The file \code{OctSingleClassification.lean} proves coverage
+for arbitrary \(\BH(10,8)\) inputs. It combines a proof of lexicographic
+normalization, completeness of the row recursion, and a checked monomial
+witness for each leaf. \code{OctDistinct.lean} distinguishes all sixty
+representatives. The exact ray and mate sets are checked in
+\code{OctSixtyExact.lean}. Candidate tables need satisfy these checks
+before they are used in the physical theorem.
+
+The file \code{OctSixtyConclusions.lean} contains both principal statements.
+\begin{center}
+\small
+\begin{tabular}{@{}ll@{}}
+Theorem~\ref{th:main} & \code{eight_relative_no_vector}\\
+Corollary~\ref{co:eleven} & \code{complete_at_least_nine_violating_eighth_power}
+\end{tabular}
+\end{center}
+The latter counts bases containing a ratio whose eighth power
+differs from \(1\). The equivalence between the eight encoded phases and
+all complex roots of \(z^8=1\) is proved in \code{OctAlphabet.lean}.
+From the repository root, run the following commands to build the proofs
+and independently recompute the finite certificates \cite{software}.
+\begin{verbatim}
+lake exe cache get
+lake build
+node reproduce/octonary.mjs --forward
+\end{verbatim}
+The last command regenerates the doubly ordered leaves and compares the
+ray, mate, and leaf witnesses with the stored data. An independent exact
+reconstruction of the Laurent identity is available in
+\code{reproduce/recover.py}, with its Python dependency pinned in
+\code{reproduce/requirements.txt}. The published single-matrix
+dataset is available under CC BY 4.0 \cite{data}.
+
+The dependency audit for the final theorems lists three standard
+principles, \code{propext}, \code{Classical.choice}, and \code{Quot.sound}.
+It also lists \code{Lean.ofReduceBool}, which records reliance on the native evaluator for finite Boolean
+checks, including the search results and the collected Laurent identity.
+Thus reproducing the verification uses the pinned Lean compiler and its
+native evaluation path. Single-matrix catalogue coverage is itself a
+theorem of the development.
+
+Theorem~\ref{th:main} gives an obstruction for triples with a common
+eighth-root coordinate description. A putative complete family could
+satisfy Corollary~\ref{co:eleven} by using more general phases in nine
+or all ten remaining bases. The unrestricted existence question for
+dimension ten therefore remains open.
+
+\paragraph{Computational assistance.}
+OpenAI Codex assisted with the proof development, independent
+recomputations and manuscript drafting. The formal checks reported here
+were performed by Lean. Scientific Agent Skills \cite{skills} provided
+procedural guidance for the writing and verification workflow.
+
+\begin{thebibliography}{9}
+\raggedright
+\bibitem{best}
+D.~Best and H.~Kharaghani,
+Unbiased complex Hadamard matrices and bases,
+\emph{Cryptogr. Commun.} \textbf{2} (2010), 199--209.
+\href{https://doi.org/10.1007/s12095-010-0029-8}{doi:10.1007/s12095-010-0029-8}.
+
+\bibitem{quaternary}
+P.~H.~J.~Lampio, F.~Sz\"oll\H{o}si and P.~R.~J.~\"Osterg{\aa}rd,
+The quaternary complex Hadamard matrices of orders 10, 12, and 14,
+\emph{Discrete Math.} \textbf{313} (2013), 189--206.
+\href{https://doi.org/10.1016/j.disc.2012.10.001}{doi:10.1016/j.disc.2012.10.001}.
+
+\bibitem{orderly}
+P.~H.~J.~Lampio, P.~R.~J.~\"Osterg{\aa}rd and F.~Sz\"oll\H{o}si,
+Orderly generation of Butson Hadamard matrices,
+\emph{Math. Comp.} \textbf{89} (2020), 313--331.
+\href{https://doi.org/10.1090/mcom/3453}{doi:10.1090/mcom/3453}.
+
+\bibitem{data}
+P.~Lampio, P.~\"Osterg{\aa}rd and F.~Sz\"oll\H{o}si,
+Dataset for Orderly Generation of Butson Hadamard Matrices, Zenodo (2019).
+\href{https://doi.org/10.5281/zenodo.2585766}{doi:10.5281/zenodo.2585766}.
+
+\bibitem{regular}
+H.~Kharaghani, B.~Tayfeh-Rezaie and V.~Zaitsev,
+On regular quaternary Hadamard matrices, \emph{J. Combin. Des.}
+\textbf{34} (2026), 215--227.
+\href{https://doi.org/10.1002/jcd.70006}{doi:10.1002/jcd.70006}.
+
+\bibitem{yang}
+J.~Yang, Y.~Liu, Y.~Li and X.-H.~Deng,
+No complete set of mutually unbiased bases in dimension ten contains the
+Fourier pair or three product bases (2026).
+\href{https://arxiv.org/abs/2611.21188}{arXiv:2611.21188}.
+
+\bibitem{software}
+\emph{mub10-lean: Octonary and quaternary obstructions for mutually
+unbiased bases in dimension ten}, Lean~4 software and certificates (2026).
+\url{https://github.com/sansssssss1/mub10-lean}.
+
+\bibitem{skills}
+T.~Kassis, V.~Agarwal, Y.~He, D.~Patel and A.~M.~Brueckner,
+Scientific Agent Skills: A Library of Procedural Knowledge for Research
+Agents (2026).
+\href{https://arxiv.org/abs/2609.00065}{arXiv:2609.00065}.
+\end{thebibliography}
+\end{document}
